@@ -189,16 +189,16 @@ public class CBORDecoder {
                 return CBOR.date(date)
             } else if tag == 100 {
                 // Per https://datatracker.ietf.org/doc/html/rfc8943
-                let days1: Int?
+                let days: Int?
                 switch item {
                 case .unsignedInt(let u):
-                    days1 = Int(exactly: u)
+                    days = Int(exactly: u)
                 case .negativeInt(let n):
-                    days1 = Int(exactly: n)
+                    days = Int(exactly: n)
                 default:
                     throw CBORDecodingError.wrongTypeInsideSequence
                 }
-                guard let days = days1 else {
+                guard let days = days else {
                     throw CBORDecodingError.wrongTypeInsideSequence
                 }
                 let date = Calendar.current.date(byAdding: DateComponents(day: days), to: Date(timeIntervalSince1970: 0))!
