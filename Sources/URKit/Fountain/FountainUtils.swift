@@ -11,9 +11,9 @@ extension Data {
     func xor(into d: inout Data) {
         assert(count == d.count)
         withUnsafeBytes { selfBytes in
-            d.withUnsafeMutableBytes { dBytes in
+            d.withUnsafeMutableBytes { (dBytes: UnsafeMutableRawBufferPointer) in
                 for i in (0..<count) {
-                    dBytes[i] ^= selfBytes[i]
+                    dBytes[i] ^= selfBytes[i] as! UInt8
                 }
             }
         }
